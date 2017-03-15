@@ -232,6 +232,8 @@ RenderWindow::RenderWindow() {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //glfwSetKeyCallback(window, key_callback); //Causes any key press to close window
     
+    controls = new Controls( window );
+    
     // Initialize GLEW to setup the OpenGL Function pointers
     if ( GLEW_OK != glewInit( ) )
     {
@@ -285,7 +287,11 @@ RenderWindow::RenderWindow() {
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram( shaderProgram );
         
-        
+        controls->computeMatricesFromInputs();
+        mat4 projectionMatrix = controls->getProjectionMatrix();
+        mat4 viewMatrix = controls->getViewMatrix();
+        mat4 modelMatrix = mat4( 1.0 );
+        mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
         
         // Draw the shape:

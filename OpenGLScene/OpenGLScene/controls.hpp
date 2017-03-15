@@ -9,22 +9,44 @@
 #ifndef controls_hpp
 #define controls_hpp
 
-#include <stdio.h>
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+using namespace glm;
 
 class Controls {
     
     GLFWwindow *window;
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
+    glm::vec3 position = glm::vec3( 0, 0, 5 );
+    
+    float horizontalAngle = 3.14f;
+    float verticalAngle = 0.0f;
+    float initialFoV = 45.0f;
+    float FoV;
+    
+    float speed = 3.0f;
+    float mouseSpeed = 0.005f;
+    double xPos, yPos;
+    int width, height;
+    
+    double lastTime;
+    double currentTime;
+    float deltaTime;
+    
+    glm::vec3 direction;
+    glm::vec3 right;
+    glm::vec3 up;
+    
     
 public:
     Controls( GLFWwindow *window );
     glm::mat4 getViewMatrix();
     glm::mat4 getProjectionMatrix();
+    void computeMatricesFromInputs();
 };
 
 
