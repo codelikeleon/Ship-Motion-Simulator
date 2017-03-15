@@ -12,6 +12,13 @@
  *    Other Functions:   *
  ************************/
 
+//Somehow causes any key press to close the window
+void RenderWindow::key_callback( GLFWwindow* window, int key, int scancode, int action, int mods ) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        std::cout << "ESC key pressed" << std::endl;
+    glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
+
 void RenderWindow::setGLContext() {
     // Set all the required options for GLFW
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
@@ -20,14 +27,6 @@ void RenderWindow::setGLContext() {
     glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
     glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
     glewExperimental = GL_TRUE; // So GLEW uses a modern approach to retrieving function pointers and extensions
-}
-
-
-//Sets the controls for the window:
-void RenderWindow::key_callback( GLFWwindow* window, int key, int scancode, int action, int mods ) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        std::cout << "ESC key pressed" << std::endl;
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
 void RenderWindow::initBuffers() {
@@ -213,7 +212,6 @@ GLuint RenderWindow::loadDDS(const char * imagepath){
 RenderWindow::RenderWindow() {
     //Initialise GLFW
     glfwInit();
-    
     setGLContext();
     
     window = glfwCreateWindow( WIDTH, HEIGHT, "OpenGL Scene", nullptr, nullptr);
@@ -228,9 +226,11 @@ RenderWindow::RenderWindow() {
     }
     
     glfwMakeContextCurrent( window );
-    
-    
-    glfwSetKeyCallback(window, key_callback);
+    // Ensure we can capture the escape key being pressed below
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    // Hide the mouse and enable unlimited mouvement
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetKeyCallback(window, key_callback); //Causes any key press to close window
     
     // Initialize GLEW to setup the OpenGL Function pointers
     if ( GLEW_OK != glewInit( ) )
@@ -278,11 +278,13 @@ RenderWindow::RenderWindow() {
     /*********************************
      *          RENDER LOOP:         *      Should be moved elsewhere?
      *********************************/
-    while ( !glfwWindowShouldClose( window )) {
+    while ( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
+           glfwWindowShouldClose(window) == 0  ) {
         glfwPollEvents();
         glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram( shaderProgram );
+        
         
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
         

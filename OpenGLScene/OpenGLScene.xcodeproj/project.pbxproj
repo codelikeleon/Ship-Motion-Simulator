@@ -84,9 +84,9 @@
 			children = (
 				35666BAE1E7726700065FA62 /* main.cpp */,
 				35666BAB1E771D700065FA62 /* RenderWindow.cpp */,
+				35666BAC1E771D700065FA62 /* RenderWindow.hpp */,
 				35666BB61E7983070065FA62 /* controls.cpp */,
 				35666BB71E7983070065FA62 /* controls.hpp */,
-				35666BAC1E771D700065FA62 /* RenderWindow.hpp */,
 				35666BB51E78A3790065FA62 /* uvtemplate.DDS */,
 				35666BB01E77399C0065FA62 /* shaders */,
 				35666BA51E7718370065FA62 /* shader.cpp */,

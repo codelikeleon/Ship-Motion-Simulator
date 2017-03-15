@@ -10,6 +10,10 @@
 #define controls_hpp
 
 #include <stdio.h>
+#include <iostream>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Controls {
     
@@ -21,8 +25,8 @@ public:
     Controls( GLFWwindow *window );
     glm::mat4 getViewMatrix();
     glm::mat4 getProjectionMatrix();
-    
 };
+
 
 
 #endif /* controls_hpp */

@@ -82,57 +82,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene.xcodeproj/project.pbxproj">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene.xcodeproj/project.xcworkspace/contents.xcworkspacedata">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene.xcodeproj/project.xcworkspace/xcuserdata/Leon.xcuserdatad/UserInterfaceState.xcuserstate">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene.xcodeproj/xcuserdata/Leon.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene.xcodeproj/xcuserdata/Leon.xcuserdatad/xcschemes/OpenGLScene.xcscheme">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene.xcodeproj/xcuserdata/Leon.xcuserdatad/xcschemes/xcschememanagement.plist">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/RenderFunctions.h">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/RenderWindow.cpp">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/RenderWindow.hpp">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/controls.cpp">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/controls.hpp">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/main.cpp">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shader.cpp">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shader.hpp">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shaders/FragmentShader.glsl">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shaders/VertexShader.glsl">
-			<Option target="OpenGLScene"/>
-		</Unit>
-		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/uvtemplate.DDS">
-			<Option target="OpenGLScene"/>
-		</Unit>
 		<Unit filename="/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

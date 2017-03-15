@@ -123,114 +123,6 @@ OpenGLScene/fast:
 	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/build
 .PHONY : OpenGLScene/fast
 
-OpenGLScene/RenderWindow.o: OpenGLScene/RenderWindow.cpp.o
-
-.PHONY : OpenGLScene/RenderWindow.o
-
-# target to build an object file
-OpenGLScene/RenderWindow.cpp.o:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/RenderWindow.cpp.o
-.PHONY : OpenGLScene/RenderWindow.cpp.o
-
-OpenGLScene/RenderWindow.i: OpenGLScene/RenderWindow.cpp.i
-
-.PHONY : OpenGLScene/RenderWindow.i
-
-# target to preprocess a source file
-OpenGLScene/RenderWindow.cpp.i:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/RenderWindow.cpp.i
-.PHONY : OpenGLScene/RenderWindow.cpp.i
-
-OpenGLScene/RenderWindow.s: OpenGLScene/RenderWindow.cpp.s
-
-.PHONY : OpenGLScene/RenderWindow.s
-
-# target to generate assembly for a file
-OpenGLScene/RenderWindow.cpp.s:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/RenderWindow.cpp.s
-.PHONY : OpenGLScene/RenderWindow.cpp.s
-
-OpenGLScene/controls.o: OpenGLScene/controls.cpp.o
-
-.PHONY : OpenGLScene/controls.o
-
-# target to build an object file
-OpenGLScene/controls.cpp.o:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/controls.cpp.o
-.PHONY : OpenGLScene/controls.cpp.o
-
-OpenGLScene/controls.i: OpenGLScene/controls.cpp.i
-
-.PHONY : OpenGLScene/controls.i
-
-# target to preprocess a source file
-OpenGLScene/controls.cpp.i:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/controls.cpp.i
-.PHONY : OpenGLScene/controls.cpp.i
-
-OpenGLScene/controls.s: OpenGLScene/controls.cpp.s
-
-.PHONY : OpenGLScene/controls.s
-
-# target to generate assembly for a file
-OpenGLScene/controls.cpp.s:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/controls.cpp.s
-.PHONY : OpenGLScene/controls.cpp.s
-
-OpenGLScene/main.o: OpenGLScene/main.cpp.o
-
-.PHONY : OpenGLScene/main.o
-
-# target to build an object file
-OpenGLScene/main.cpp.o:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/main.cpp.o
-.PHONY : OpenGLScene/main.cpp.o
-
-OpenGLScene/main.i: OpenGLScene/main.cpp.i
-
-.PHONY : OpenGLScene/main.i
-
-# target to preprocess a source file
-OpenGLScene/main.cpp.i:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/main.cpp.i
-.PHONY : OpenGLScene/main.cpp.i
-
-OpenGLScene/main.s: OpenGLScene/main.cpp.s
-
-.PHONY : OpenGLScene/main.s
-
-# target to generate assembly for a file
-OpenGLScene/main.cpp.s:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/main.cpp.s
-.PHONY : OpenGLScene/main.cpp.s
-
-OpenGLScene/shader.o: OpenGLScene/shader.cpp.o
-
-.PHONY : OpenGLScene/shader.o
-
-# target to build an object file
-OpenGLScene/shader.cpp.o:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/shader.cpp.o
-.PHONY : OpenGLScene/shader.cpp.o
-
-OpenGLScene/shader.i: OpenGLScene/shader.cpp.i
-
-.PHONY : OpenGLScene/shader.i
-
-# target to preprocess a source file
-OpenGLScene/shader.cpp.i:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/shader.cpp.i
-.PHONY : OpenGLScene/shader.cpp.i
-
-OpenGLScene/shader.s: OpenGLScene/shader.cpp.s
-
-.PHONY : OpenGLScene/shader.s
-
-# target to generate assembly for a file
-OpenGLScene/shader.cpp.s:
-	$(MAKE) -f CMakeFiles/OpenGLScene.dir/build.make CMakeFiles/OpenGLScene.dir/OpenGLScene/shader.cpp.s
-.PHONY : OpenGLScene/shader.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,18 +132,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... OpenGLScene"
-	@echo "... OpenGLScene/RenderWindow.o"
-	@echo "... OpenGLScene/RenderWindow.i"
-	@echo "... OpenGLScene/RenderWindow.s"
-	@echo "... OpenGLScene/controls.o"
-	@echo "... OpenGLScene/controls.i"
-	@echo "... OpenGLScene/controls.s"
-	@echo "... OpenGLScene/main.o"
-	@echo "... OpenGLScene/main.i"
-	@echo "... OpenGLScene/main.s"
-	@echo "... OpenGLScene/shader.o"
-	@echo "... OpenGLScene/shader.i"
-	@echo "... OpenGLScene/shader.s"
 .PHONY : help
 
 

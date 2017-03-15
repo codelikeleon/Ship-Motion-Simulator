@@ -131,10 +131,10 @@ class RenderWindow {
 public:
     RenderWindow();
     void setGLContext();
-    static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
     void initBuffers();
     GLuint loadBMP( const char * imagePath );
     GLuint loadDDS(const char * imagepath);
+    static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 };
 #endif /* RenderWindow_hpp */

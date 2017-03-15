@@ -6,10 +6,6 @@
 //  Copyright © 2017 Leon Schiedermair. All rights reserved.
 //
 
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "controls.hpp"
 
 using namespace glm;
@@ -25,3 +21,4 @@ glm::mat4 Controls::getProjectionMatrix() {
 Controls::Controls( GLFWwindow *window ) {
     this->window = window;
 }
+
