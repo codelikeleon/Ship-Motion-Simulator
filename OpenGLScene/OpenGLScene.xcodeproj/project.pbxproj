@@ -14,6 +14,7 @@
 		35666BAD1E771D700065FA62 /* RenderWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35666BAB1E771D700065FA62 /* RenderWindow.cpp */; };
 		35666BAF1E7726700065FA62 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35666BAE1E7726700065FA62 /* main.cpp */; };
 		35666BB21E77605E0065FA62 /* glm in Frameworks */ = {isa = PBXBuildFile; fileRef = 35666BB11E77605E0065FA62 /* glm */; };
+		35666BB81E7983070065FA62 /* controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35666BB61E7983070065FA62 /* controls.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,8 +42,9 @@
 		35666BAE1E7726700065FA62 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		35666BB01E77399C0065FA62 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
 		35666BB11E77605E0065FA62 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = glm; path = ../../../../../../../usr/local/Cellar/glm/0.9.8.3/include/glm; sourceTree = "<group>"; };
-		35666BB41E789FD40065FA62 /* RenderFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderFunctions.h; sourceTree = "<group>"; };
 		35666BB51E78A3790065FA62 /* uvtemplate.DDS */ = {isa = PBXFileReference; lastKnownFileType = file; path = uvtemplate.DDS; sourceTree = "<group>"; };
+		35666BB61E7983070065FA62 /* controls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controls.cpp; sourceTree = "<group>"; };
+		35666BB71E7983070065FA62 /* controls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controls.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +84,10 @@
 			children = (
 				35666BAE1E7726700065FA62 /* main.cpp */,
 				35666BAB1E771D700065FA62 /* RenderWindow.cpp */,
+				35666BB61E7983070065FA62 /* controls.cpp */,
+				35666BB71E7983070065FA62 /* controls.hpp */,
 				35666BAC1E771D700065FA62 /* RenderWindow.hpp */,
 				35666BB51E78A3790065FA62 /* uvtemplate.DDS */,
-				35666BB41E789FD40065FA62 /* RenderFunctions.h */,
 				35666BB01E77399C0065FA62 /* shaders */,
 				35666BA51E7718370065FA62 /* shader.cpp */,
 				35666BA61E7718370065FA62 /* shader.hpp */,
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35666BA71E7718370065FA62 /* shader.cpp in Sources */,
+				35666BB81E7983070065FA62 /* controls.cpp in Sources */,
 				35666BAF1E7726700065FA62 /* main.cpp in Sources */,
 				35666BAD1E771D700065FA62 /* RenderWindow.cpp in Sources */,
 			);

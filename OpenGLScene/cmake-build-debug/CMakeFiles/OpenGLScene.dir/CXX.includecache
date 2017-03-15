@@ -1,0 +1,74 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/RenderWindow.cpp
+RenderWindow.hpp
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/RenderWindow.hpp
+shader.hpp
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shader.hpp
+controls.hpp
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/controls.hpp
+
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/RenderWindow.hpp
+iostream
+-
+GL/glew.h
+-
+GLFW/glfw3.h
+-
+glm/glm.hpp
+-
+glm/gtc/matrix_transform.hpp
+-
+controls.hpp
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/controls.hpp
+
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/controls.cpp
+GLFW/glfw3.h
+-
+glm/glm.hpp
+-
+glm/gtc/matrix_transform.hpp
+-
+controls.hpp
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/controls.hpp
+
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/controls.hpp
+stdio.h
+-
+
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/main.cpp
+stdio.h
+-
+RenderWindow.cpp
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/RenderWindow.cpp
+
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shader.cpp
+stdio.h
+-
+string
+-
+vector
+-
+iostream
+-
+fstream
+-
+algorithm
+-
+stdlib.h
+-
+string.h
+-
+GL/glew.h
+-
+shader.hpp
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shader.hpp
+
+/Users/Leon/OneDrive - UniversityofExeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shader.hpp
+

@@ -7,13 +7,12 @@
 //
 
 #include <stdio.h>
-#include "RenderWindow.cpp"
+#include "RenderWindow.hpp"
 
 
 int main() {
 
     RenderWindow *renderWindow = new RenderWindow();
-    
     return 0;
 
 }
