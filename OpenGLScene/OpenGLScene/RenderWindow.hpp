@@ -117,6 +117,7 @@ class RenderWindow {
     //Vertex Array/Buffer Objects:
     GLuint VAO, VBO;
     GLuint uvBuffer;
+    GLuint normalBuffer;
     
     glm::mat4 Projection;
     glm::mat4 View;

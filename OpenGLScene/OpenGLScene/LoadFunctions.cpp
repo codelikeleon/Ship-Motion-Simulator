@@ -249,7 +249,14 @@ GLuint LoadDDS(const char * imagepath){
     return textureID;
 }
 
-//Simple OBJ file loader that will not work with more complex OBJ files - change this in the future!!!
+/*
+ * Simple OBJ file loader that will not work with more complex OBJ files - change this in the future!!!
+ *
+ * This loader:
+ * - Requires normals and UVs
+ * - Does not import materials
+ * - Cannot handle anything except triangles
+ */
 bool LoadOBJ(  const char* obj_file_path
              , vector<glm::vec3> &out_vertices
              , vector<glm::vec2> &out_uvs

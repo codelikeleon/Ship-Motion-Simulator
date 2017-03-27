@@ -42,11 +42,10 @@
 		35666BAE1E7726700065FA62 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		35666BB01E77399C0065FA62 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
 		35666BB11E77605E0065FA62 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = glm; path = ../../../../../../../usr/local/Cellar/glm/0.9.8.3/include/glm; sourceTree = "<group>"; };
-		35666BB51E78A3790065FA62 /* uvtemplate.DDS */ = {isa = PBXFileReference; lastKnownFileType = file; path = uvtemplate.DDS; sourceTree = "<group>"; };
 		35666BB61E7983070065FA62 /* controls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controls.cpp; sourceTree = "<group>"; };
 		35666BB71E7983070065FA62 /* controls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controls.hpp; sourceTree = "<group>"; };
-		35897B341E898648008AC587 /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
-		35897B351E899AC4008AC587 /* uvmap.DDS */ = {isa = PBXFileReference; lastKnownFileType = file; path = uvmap.DDS; sourceTree = "<group>"; };
+		35897B391E89A514008AC587 /* obj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = obj; sourceTree = "<group>"; };
+		35897B3A1E89A5CE008AC587 /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = textures; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +88,9 @@
 				35666BAC1E771D700065FA62 /* RenderWindow.hpp */,
 				35666BB61E7983070065FA62 /* controls.cpp */,
 				35666BB71E7983070065FA62 /* controls.hpp */,
-				35897B351E899AC4008AC587 /* uvmap.DDS */,
-				35666BB51E78A3790065FA62 /* uvtemplate.DDS */,
-				35897B341E898648008AC587 /* cube.obj */,
+				35897B391E89A514008AC587 /* obj */,
 				35666BB01E77399C0065FA62 /* shaders */,
+				35897B3A1E89A5CE008AC587 /* textures */,
 				35666BA51E7718370065FA62 /* LoadFunctions.cpp */,
 				35666BA61E7718370065FA62 /* LoadFunctions.hpp */,
 			);

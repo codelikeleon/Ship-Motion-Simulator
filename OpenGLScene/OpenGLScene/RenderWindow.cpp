@@ -45,21 +45,29 @@ void RenderWindow::initBuffers() {
     glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
     glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec3), &uvs[0], GL_STATIC_DRAW);
     
+    //Normal buffer:
+    glGenBuffers(1, &normalBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+    
+    //Vertex
     glEnableVertexAttribArray( 0 );
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, ( GLvoid * ) 0 );   //Try setting stride to 0 instead of 3 * sizeof( GLfloat )
     
+    //UV
     glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-    glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), ( GLvoid * ) 0 );
-    // This is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
+    glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, 0, ( GLvoid * ) 0 );
+    
+    //Normal
+    glEnableVertexAttribArray(2);
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    glVertexAttribPointer( 2, 3, GL_FLOAT, GL_FALSE, 0, ( GLvoid * ) 0 );
     
     //enable Z-Buffer: Requires GL_DEPTH_BUFFER_BIT in render loop.
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    
-//        glBindVertexArray( 0 ); // Unbind VAO - unbind any buffer/array to prevent strange bugs
-    
 }
 
 RenderWindow::RenderWindow() {
@@ -101,6 +109,7 @@ RenderWindow::RenderWindow() {
      ******************************/
     
     shaderProgram = LoadShaders("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shaders/VertexShader.glsl", "/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shaders/FragmentShader.glsl");       //TODO: Change to relative path
+    glUseProgram( shaderProgram );
     
     //Send to GLSL:
     MatrixID = glGetUniformLocation(shaderProgram, "MVP");
@@ -110,14 +119,14 @@ RenderWindow::RenderWindow() {
      *           Textures:         *
      ******************************/
     
-    texture = LoadDDS("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/uvmap.DDS");
+    texture = LoadDDS("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/textures/suzanne.DDS");
     textureID = glGetUniformLocation(shaderProgram, "textureSampler");
     
     /*******************************
      *           OBJ files:         *
      ******************************/
     
-    res = LoadOBJ("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/cube.obj", vertices, uvs, normals);
+    res = LoadOBJ("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/obj/suzanne.obj", vertices, uvs, normals);
     
     
     glfwSwapInterval(1);
@@ -128,9 +137,8 @@ RenderWindow::RenderWindow() {
     while ( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0  ) {
         glfwPollEvents();
-        glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
+//        glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram( shaderProgram );
         
         controls->computeMatricesFromInputs();
         mat4 projectionMatrix = controls->getProjectionMatrix();
