@@ -9,9 +9,7 @@
 #ifndef RenderWindow_hpp
 #define RenderWindow_hpp
 
-#define FOURCC_DXT1 0x31545844 // Equivalent to "DXT1" in ASCII
-#define FOURCC_DXT3 0x33545844 // Equivalent to "DXT3" in ASCII
-#define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
+
 
 #include <iostream>
 #include <GL/glew.h>
@@ -20,7 +18,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "controls.hpp"
-#include "shader.hpp"
+#include "LoadFunctions.hpp"
 
 using namespace glm;
 
@@ -127,14 +125,19 @@ class RenderWindow {
     GLuint MatrixID;
     
     GLuint texture;
+    GLuint textureID;
+    
+    //For OBJ files:
+    std::vector<glm::vec3> vertices;
+    std::vector<glm::vec2> uvs;
+    std::vector<glm::vec3> normals;
     
 public:
     RenderWindow();
     void setGLContext();
     void initBuffers();
-    GLuint loadBMP( const char * imagePath );
-    GLuint loadDDS(const char * imagepath);
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 };
+
 #endif /* RenderWindow_hpp */
