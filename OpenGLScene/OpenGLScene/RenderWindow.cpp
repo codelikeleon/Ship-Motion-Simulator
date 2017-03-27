@@ -67,7 +67,7 @@ RenderWindow::RenderWindow() {
     glfwInit();
     setGLContext();
     
-    window = glfwCreateWindow( WIDTH, HEIGHT, "OpenGL Scene", nullptr, nullptr);
+    window = glfwCreateWindow( WIDTH, HEIGHT, "OpenGL Scene", nullptr, nullptr );
     glfwGetFramebufferSize( window, &screenWidth, &screenHeight );
     
     if ( nullptr == window )
@@ -88,8 +88,7 @@ RenderWindow::RenderWindow() {
     controls = new Controls( window );
     
     // Initialize GLEW to setup the OpenGL Function pointers
-    if ( GLEW_OK != glewInit( ) )
-    {
+    if ( GLEW_OK != glewInit( ) ) {
         std::cout << "Failed to initialize GLEW" << std::endl;
         exit( EXIT_FAILURE );
     }
