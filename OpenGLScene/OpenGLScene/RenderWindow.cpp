@@ -111,9 +111,11 @@ RenderWindow::RenderWindow() {
     shaderProgram = LoadShaders("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shaders/VertexShader.glsl", "/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/shaders/FragmentShader.glsl");       //TODO: Change to relative path
     glUseProgram( shaderProgram );
     
-    //Send to GLSL:
+    //Send handles to GLSL:
     MatrixID = glGetUniformLocation(shaderProgram, "MVP");
-    
+    ViewMatrixID = glGetUniformLocation(shaderProgram, "V");
+    ModelMatrixID = glGetUniformLocation(shaderProgram, "M");
+    LightID = glGetUniformLocation(shaderProgram, "light_position_worldspace");
     
     /*******************************
      *           Textures:         *
@@ -146,6 +148,17 @@ RenderWindow::RenderWindow() {
         mat4 modelMatrix = mat4( 1.0 );
         mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+        glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
+        
+        lightPos = vec3(4, 4, 4);
+        glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+        
+        // Bind our texture in Texture Unit 0
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        // Set our "myTextureSampler" sampler to user Texture Unit 0
+        glUniform1i(textureID, 0);
         
         // Draw the shape:
         glDrawArrays(GL_TRIANGLES, 0, vertices.size() );

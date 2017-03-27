@@ -124,6 +124,11 @@ class RenderWindow {
     glm::mat4 Model;
     glm::mat4 mvp;
     GLuint MatrixID;
+    GLuint ViewMatrixID;
+    GLuint ModelMatrixID;
+    
+    GLuint LightID;
+    vec3 lightPos;
     
     GLuint texture;
     GLuint textureID;
