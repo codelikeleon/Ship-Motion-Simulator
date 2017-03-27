@@ -333,6 +333,6 @@ bool LoadOBJ(  const char* obj_file_path
         out_normals .push_back(normal);
         
     }
-    
+    fprintf(stderr, "Successfully loaded OBJ file: %s\n", obj_file_path);
     return true;
 }

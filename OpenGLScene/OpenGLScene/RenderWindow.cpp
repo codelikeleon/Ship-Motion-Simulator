@@ -37,13 +37,13 @@ void RenderWindow::initBuffers() {
     //Vertex Buffer:
     glGenBuffers( 1, &VBO );
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
-    glBufferData( GL_ARRAY_BUFFER, sizeof( g_vertex_buffer_data ), g_vertex_buffer_data, GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW );
     // Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
     
     //UV buffer:
     glGenBuffers(1, &uvBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_uv_buffer_data), g_uv_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec3), &uvs[0], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray( 0 );
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
@@ -106,16 +106,23 @@ RenderWindow::RenderWindow() {
     //Send to GLSL:
     MatrixID = glGetUniformLocation(shaderProgram, "MVP");
     
-    glfwSwapInterval(1);
-    initBuffers();
     
     /*******************************
      *           Textures:         *
      ******************************/
     
-    texture = LoadDDS("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/uvtemplate.DDS");
+    texture = LoadDDS("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/uvmap.DDS");
     textureID = glGetUniformLocation(shaderProgram, "textureSampler");
     
+    /*******************************
+     *           OBJ files:         *
+     ******************************/
+    
+    res = LoadOBJ("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/cube.obj", vertices, uvs, normals);
+    
+    
+    glfwSwapInterval(1);
+    initBuffers();
     /*********************************
      *          RENDER LOOP:         *      Should be moved elsewhere?
      *********************************/
@@ -134,7 +141,7 @@ RenderWindow::RenderWindow() {
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
         
         // Draw the shape:
-        glDrawArrays(GL_TRIANGLES, 0, 12*3);
+        glDrawArrays(GL_TRIANGLES, 0, vertices.size() );
         
         glfwSwapBuffers( window );
     }

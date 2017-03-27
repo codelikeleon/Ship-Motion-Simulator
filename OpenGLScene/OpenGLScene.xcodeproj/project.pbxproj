@@ -45,6 +45,8 @@
 		35666BB51E78A3790065FA62 /* uvtemplate.DDS */ = {isa = PBXFileReference; lastKnownFileType = file; path = uvtemplate.DDS; sourceTree = "<group>"; };
 		35666BB61E7983070065FA62 /* controls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controls.cpp; sourceTree = "<group>"; };
 		35666BB71E7983070065FA62 /* controls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controls.hpp; sourceTree = "<group>"; };
+		35897B341E898648008AC587 /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		35897B351E899AC4008AC587 /* uvmap.DDS */ = {isa = PBXFileReference; lastKnownFileType = file; path = uvmap.DDS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +89,9 @@
 				35666BAC1E771D700065FA62 /* RenderWindow.hpp */,
 				35666BB61E7983070065FA62 /* controls.cpp */,
 				35666BB71E7983070065FA62 /* controls.hpp */,
+				35897B351E899AC4008AC587 /* uvmap.DDS */,
 				35666BB51E78A3790065FA62 /* uvtemplate.DDS */,
+				35897B341E898648008AC587 /* cube.obj */,
 				35666BB01E77399C0065FA62 /* shaders */,
 				35666BA51E7718370065FA62 /* LoadFunctions.cpp */,
 				35666BA61E7718370065FA62 /* LoadFunctions.hpp */,
