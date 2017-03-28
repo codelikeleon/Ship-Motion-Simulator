@@ -15,6 +15,7 @@
 		35666BAF1E7726700065FA62 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35666BAE1E7726700065FA62 /* main.cpp */; };
 		35666BB21E77605E0065FA62 /* glm in Frameworks */ = {isa = PBXBuildFile; fileRef = 35666BB11E77605E0065FA62 /* glm */; };
 		35666BB81E7983070065FA62 /* controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35666BB61E7983070065FA62 /* controls.cpp */; };
+		35897B411E8AC9E6008AC587 /* libassimp.3.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 35897B401E8AC9E6008AC587 /* libassimp.3.3.1.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		35666B8E1E76FE2F0065FA62 /* OpenGLScene */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenGLScene; sourceTree = BUILT_PRODUCTS_DIR; };
-		35666B991E76FE550065FA62 /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../glew/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		35666B9B1E76FEDE0065FA62 /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../../usr/local/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		35666B9D1E76FEE50065FA62 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		35666B9F1E76FEF70065FA62 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
@@ -46,6 +46,7 @@
 		35666BB71E7983070065FA62 /* controls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controls.hpp; sourceTree = "<group>"; };
 		35897B391E89A514008AC587 /* obj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = obj; sourceTree = "<group>"; };
 		35897B3A1E89A5CE008AC587 /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = textures; sourceTree = "<group>"; };
+		35897B401E8AC9E6008AC587 /* libassimp.3.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.3.1.dylib; path = ../../../../../../../usr/local/Cellar/assimp/3.3.1/lib/libassimp.3.3.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,10 +54,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35666BB21E77605E0065FA62 /* glm in Frameworks */,
 				35666BA01E76FEF70065FA62 /* libglfw.3.2.dylib in Frameworks */,
 				35666B9C1E76FEDE0065FA62 /* libGLEW.2.0.0.dylib in Frameworks */,
 				35666B9E1E76FEE50065FA62 /* OpenGL.framework in Frameworks */,
+				35666BB21E77605E0065FA62 /* glm in Frameworks */,
+				35897B411E8AC9E6008AC587 /* libassimp.3.3.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,11 +102,11 @@
 		35666B981E76FE550065FA62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				35897B401E8AC9E6008AC587 /* libassimp.3.3.1.dylib */,
 				35666BB11E77605E0065FA62 /* glm */,
 				35666B9F1E76FEF70065FA62 /* libglfw.3.2.dylib */,
 				35666B9D1E76FEE50065FA62 /* OpenGL.framework */,
 				35666B9B1E76FEDE0065FA62 /* libGLEW.2.0.0.dylib */,
-				35666B991E76FE550065FA62 /* libGLEW.2.0.0.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -270,6 +272,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
+					/usr/local/Cellar/assimp/3.3.1/lib,
 				);
 				OTHER_LDFLAGS = "-lGLEW";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -283,6 +286,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
+					/usr/local/Cellar/assimp/3.3.1/lib,
 				);
 				OTHER_LDFLAGS = "-lGLEW";
 				PRODUCT_NAME = "$(TARGET_NAME)";

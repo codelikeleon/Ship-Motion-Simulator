@@ -9,10 +9,7 @@
 #include <stdio.h>
 #include "RenderWindow.hpp"
 
-
 int main() {
-
     RenderWindow *renderWindow = new RenderWindow();
     return 0;
-
 }

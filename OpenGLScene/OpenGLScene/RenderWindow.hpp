@@ -22,84 +22,6 @@
 
 using namespace glm;
 
-//static const GLfloat g_vertex_buffer_data[] = {
-//    -1.0f,-1.0f,-1.0f, // triangle 1 : begin
-//    -1.0f,-1.0f, 1.0f,
-//    -1.0f, 1.0f, 1.0f, // triangle 1 : end
-//    1.0f, 1.0f,-1.0f, // triangle 2 : begin
-//    -1.0f,-1.0f,-1.0f,
-//    -1.0f, 1.0f,-1.0f, // triangle 2 : end
-//    1.0f,-1.0f, 1.0f,
-//    -1.0f,-1.0f,-1.0f,
-//    1.0f,-1.0f,-1.0f,
-//    1.0f, 1.0f,-1.0f,
-//    1.0f,-1.0f,-1.0f,
-//    -1.0f,-1.0f,-1.0f,
-//    -1.0f,-1.0f,-1.0f,
-//    -1.0f, 1.0f, 1.0f,
-//    -1.0f, 1.0f,-1.0f,
-//    1.0f,-1.0f, 1.0f,
-//    -1.0f,-1.0f, 1.0f,
-//    -1.0f,-1.0f,-1.0f,
-//    -1.0f, 1.0f, 1.0f,
-//    -1.0f,-1.0f, 1.0f,
-//    1.0f,-1.0f, 1.0f,
-//    1.0f, 1.0f, 1.0f,
-//    1.0f,-1.0f,-1.0f,
-//    1.0f, 1.0f,-1.0f,
-//    1.0f,-1.0f,-1.0f,
-//    1.0f, 1.0f, 1.0f,
-//    1.0f,-1.0f, 1.0f,
-//    1.0f, 1.0f, 1.0f,
-//    1.0f, 1.0f,-1.0f,
-//    -1.0f, 1.0f,-1.0f,
-//    1.0f, 1.0f, 1.0f,
-//    -1.0f, 1.0f,-1.0f,
-//    -1.0f, 1.0f, 1.0f,
-//    1.0f, 1.0f, 1.0f,
-//    -1.0f, 1.0f, 1.0f,
-//    1.0f,-1.0f, 1.0f
-//};
-
-//static const GLfloat g_uv_buffer_data[] = {
-//    0.000059f, 1.0f-0.000004f,
-//    0.000103f, 1.0f-0.336048f,
-//    0.335973f, 1.0f-0.335903f,
-//    1.000023f, 1.0f-0.000013f,
-//    0.667979f, 1.0f-0.335851f,
-//    0.999958f, 1.0f-0.336064f,
-//    0.667979f, 1.0f-0.335851f,
-//    0.336024f, 1.0f-0.671877f,
-//    0.667969f, 1.0f-0.671889f,
-//    1.000023f, 1.0f-0.000013f,
-//    0.668104f, 1.0f-0.000013f,
-//    0.667979f, 1.0f-0.335851f,
-//    0.000059f, 1.0f-0.000004f,
-//    0.335973f, 1.0f-0.335903f,
-//    0.336098f, 1.0f-0.000071f,
-//    0.667979f, 1.0f-0.335851f,
-//    0.335973f, 1.0f-0.335903f,
-//    0.336024f, 1.0f-0.671877f,
-//    1.000004f, 1.0f-0.671847f,
-//    0.999958f, 1.0f-0.336064f,
-//    0.667979f, 1.0f-0.335851f,
-//    0.668104f, 1.0f-0.000013f,
-//    0.335973f, 1.0f-0.335903f,
-//    0.667979f, 1.0f-0.335851f,
-//    0.335973f, 1.0f-0.335903f,
-//    0.668104f, 1.0f-0.000013f,
-//    0.336098f, 1.0f-0.000071f,
-//    0.000103f, 1.0f-0.336048f,
-//    0.000004f, 1.0f-0.671870f,
-//    0.336024f, 1.0f-0.671877f,
-//    0.000103f, 1.0f-0.336048f,
-//    0.336024f, 1.0f-0.671877f,
-//    0.335973f, 1.0f-0.335903f,
-//    0.667969f, 1.0f-0.671889f,
-//    1.000004f, 1.0f-0.671847f,
-//    0.667979f, 1.0f-0.335851f
-//};
-
 class RenderWindow {
     
     bool initiliased;
@@ -118,11 +40,12 @@ class RenderWindow {
     GLuint VAO, VBO;
     GLuint uvBuffer;
     GLuint normalBuffer;
+    GLuint elementBuffer; //For VBO indexing
     
-    glm::mat4 Projection;
-    glm::mat4 View;
-    glm::mat4 Model;
-    glm::mat4 mvp;
+    mat4 Projection;
+    mat4 View;
+    mat4 Model;
+    mat4 mvp;
     GLuint MatrixID;
     GLuint ViewMatrixID;
     GLuint ModelMatrixID;
@@ -135,16 +58,18 @@ class RenderWindow {
     
     //For OBJ files:
     bool res;
-    std::vector<glm::vec3> vertices;
-    std::vector<glm::vec2> uvs;
-    std::vector<glm::vec3> normals;
-    
+    std::vector<glm::vec3> indexed_vertices;
+    std::vector<glm::vec2> indexed_uvs;
+    std::vector<glm::vec3> indexed_normals;
+    std::vector<unsigned short> indices;  //used for VBO indexing
+
+//TODO: Make appropriate member functions private
 public:
     RenderWindow();
     void setGLContext();
     void initBuffers();
-    static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
+    void enableArrays();
+    void showPerformance();
 };
 
 #endif /* RenderWindow_hpp */
