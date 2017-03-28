@@ -12,10 +12,6 @@
 //
 
 #include "RenderWindow.hpp"
-    
-/*************************
- *    Other Functions:   *
- ************************/
 
 void RenderWindow::setGLContext() {
     // Set all the required options for GLFW
@@ -76,6 +72,7 @@ void RenderWindow::initBuffers() {
     //enable Z-Buffer: Requires GL_DEPTH_BUFFER_BIT in render loop.
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+    glEnable(GL_CULL_FACE);
 }
 
 void RenderWindow::enableArrays() {
@@ -154,10 +151,22 @@ RenderWindow::RenderWindow() {
      *           OBJ files:         *
      ******************************/
     
-//    res = LoadAssImp("/Users/Leon/OneDrive - University of Exeter/Ship Motion Simulator/Projects/OpenGLScene/OpenGLScene/OpenGLScene/obj/compatibleBoat3.obj", vertices, uvs, normals);
-    
     // Read our .obj file
-    bool res = LoadAssImp("obj/simpleRowBoat.obj", indices, indexed_vertices, indexed_uvs, indexed_normals);
+    bool res = LoadAssImp("obj/pirateShip.obj", indices, indexed_vertices, indexed_uvs, indexed_normals); //Put in if statement?
+    /* 
+     * Objects:
+     *
+     * cube.obj           - working, texture: cube.DDS
+     * suzanne.obj        - working, texture: suzanne.DDS
+     * rowBoat.obj        - working, no texture.
+     * rubberDingy.obj    - working, no texture.
+     * rowBoat.obj        - working, no texture.
+     * pirateShip.obj     - not working, visual artefacts.
+     * yacht.obj          - not working, visual artefacts.
+     * boat.obj           - not working, causes runtime error.
+     * compatibleBoat.obj - not working, causes runtime error.
+     * tugBoat.obj        - not working, causes runtime error.
+     */
     
     glfwSwapInterval(1);
     initBuffers();
@@ -167,7 +176,7 @@ RenderWindow::RenderWindow() {
     while ( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0  ) {
         glfwPollEvents();
-//        glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour
+        glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         showPerformance();
@@ -188,9 +197,6 @@ RenderWindow::RenderWindow() {
         glBindTexture(GL_TEXTURE_2D, texture);
         // Set the "textureSampler" sampler to user Texture Unit 0
         glUniform1i(textureID, 0);
-        
-        // Draw the shape:
-        //glDrawArrays(GL_TRIANGLES, 0, vertices.size() );
         
         enableArrays();
         
@@ -214,6 +220,12 @@ RenderWindow::RenderWindow() {
     //De-allocate all resources once they've outlived their purpose
     glDeleteVertexArrays( 1, &VAO );
     glDeleteBuffers( 1, &VBO );
+    glDeleteBuffers(1, &uvBuffer);
+    glDeleteBuffers(1, &normalBuffer);
+    glDeleteBuffers(1, &elementBuffer);
+    glDeleteProgram(shaderProgram);
+    glDeleteTextures(1, &texture);
+    
     glfwTerminate();
 }
 

@@ -176,8 +176,11 @@ GLuint LoadDDS(const char * imagepath){
     
     /* try to open the file */
     fp = fopen(imagepath, "rb");
-    if (fp == NULL)
+    if (fp == NULL) {
+        fprintf(stderr, "ERROR: Unable to read .DDS file: %s\n", imagepath);
         return 0;
+    }
+    
     
     /* verify the type of file */
     char filecode[4];

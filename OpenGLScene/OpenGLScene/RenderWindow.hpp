@@ -28,7 +28,7 @@ class RenderWindow {
     int screenWidth, screenHeight;
     
     GLFWwindow *window;
-    const GLuint WIDTH = 800, HEIGHT = 600;
+    const GLuint WIDTH = 1024, HEIGHT = 768;
     
     Controls *controls;
     
