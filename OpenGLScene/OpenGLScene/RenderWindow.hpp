@@ -61,7 +61,7 @@ class RenderWindow {
     std::vector<glm::vec3> indexed_vertices;
     std::vector<glm::vec2> indexed_uvs;
     std::vector<glm::vec3> indexed_normals;
-    std::vector<unsigned short> indices;  //used for VBO indexing
+    std::vector<unsigned int> indices;  //used for VBO indexing
 
 //TODO: Make appropriate member functions private
 public:

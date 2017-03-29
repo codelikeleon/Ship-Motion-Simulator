@@ -8,7 +8,8 @@
 //  Notes:
 //  - Project working directory changed in:
 //    Product > Scheme > Edit Scheme > Run > Options > Working Directory.
-//
+//  - Rendering problem caused by using shorts instead of ints for the vertex indices.
+//    This is fixed by using ints for 'vector<unsigned int> indices' and the buffers.
 //
 
 #include "RenderWindow.hpp"
@@ -67,7 +68,7 @@ void RenderWindow::initBuffers() {
     //Element buffer:
     glGenBuffers(1, &elementBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
     
     //enable Z-Buffer: Requires GL_DEPTH_BUFFER_BIT in render loop.
     glEnable(GL_DEPTH_TEST);
@@ -144,7 +145,7 @@ RenderWindow::RenderWindow() {
      *           Textures:         *
      ******************************/
     
-    texture = LoadDDS("textures/suzanne.DDS");
+    texture = LoadDDS("textures/NOTEXTURE.DDS");
     textureID = glGetUniformLocation(shaderProgram, "textureSampler");
     
     /*******************************
@@ -160,7 +161,6 @@ RenderWindow::RenderWindow() {
      * suzanne.obj        - working, texture: suzanne.DDS
      * rowBoat.obj        - working, no texture.
      * rubberDingy.obj    - working, no texture.
-     * rowBoat.obj        - working, no texture.
      * pirateShip.obj     - not working, visual artefacts.
      * yacht.obj          - not working, visual artefacts.
      * boat.obj           - not working, causes runtime error.
@@ -207,7 +207,7 @@ RenderWindow::RenderWindow() {
         glDrawElements(
                        GL_TRIANGLES,      // mode
                        indices.size(),    // count
-                       GL_UNSIGNED_SHORT,   // type
+                       GL_UNSIGNED_INT,   // type
                        (void*)0           // element array buffer offset
                        );
         
