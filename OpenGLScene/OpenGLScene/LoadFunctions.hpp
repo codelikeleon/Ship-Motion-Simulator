@@ -33,7 +33,7 @@ using namespace std;
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 
 GLuint LoadShaders( const char * vertex_file_path,const char * fragment_file_path );
-GLuint LoadBMP( const char * imagePath );
+GLuint LoadBMPSkybox( vector<const GLchar * > skyboxFaces );
 GLuint LoadDDS( const char * imagepath );
 bool LoadOBJ(
              const char* obj_file_path,

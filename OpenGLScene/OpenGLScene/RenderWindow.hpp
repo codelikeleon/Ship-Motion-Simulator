@@ -9,16 +9,16 @@
 #ifndef RenderWindow_hpp
 #define RenderWindow_hpp
 
-
-
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "controls.hpp"
 #include "LoadFunctions.hpp"
+#include "Skybox.hpp"
 
 using namespace glm;
 
@@ -55,6 +55,8 @@ class RenderWindow {
     
     GLuint texture;
     GLuint textureID;
+    
+    Skybox *skybox;
     
     //For OBJ files:
     bool res;

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Leon Schiedermair. All rights reserved.
 //
 //  Notes:
-//  - Project working directory changed in:
+//  - Project working directory for Xcode changed in:
 //    Product > Scheme > Edit Scheme > Run > Options > Working Directory.
 //  - Rendering problem caused by using shorts instead of ints for the vertex indices.
 //    This is fixed by using ints for 'vector<unsigned int> indices' and the buffers.
@@ -145,7 +145,7 @@ RenderWindow::RenderWindow() {
      *           Textures:         *
      ******************************/
     
-    texture = LoadDDS("textures/NOTEXTURE.DDS");
+    texture = LoadDDS("textures/suzanne.DDS");
     textureID = glGetUniformLocation(shaderProgram, "textureSampler");
     
     /*******************************
@@ -153,16 +153,16 @@ RenderWindow::RenderWindow() {
      ******************************/
     
     // Read our .obj file
-    bool res = LoadAssImp("obj/pirateShip.obj", indices, indexed_vertices, indexed_uvs, indexed_normals); //Put in if statement?
+    bool res = LoadAssImp("obj/suzanne.obj", indices, indexed_vertices, indexed_uvs, indexed_normals); //Put in if statement?
     /* 
      * Objects:
      *
      * cube.obj           - working, texture: cube.DDS
      * suzanne.obj        - working, texture: suzanne.DDS
      * rowBoat.obj        - working, no texture.
-     * rubberDingy.obj    - working, no texture.
-     * pirateShip.obj     - not working, visual artefacts.
-     * yacht.obj          - not working, visual artefacts.
+     * pirateShip.obj     - working, no texture.
+     * yacht.obj          - working, no texture.
+     * rubberDingy.obj    - sometimes works, no texture.
      * boat.obj           - not working, causes runtime error.
      * compatibleBoat.obj - not working, causes runtime error.
      * tugBoat.obj        - not working, causes runtime error.
@@ -170,11 +170,13 @@ RenderWindow::RenderWindow() {
     
     glfwSwapInterval(1);
     initBuffers();
+    
+    skybox = new Skybox();
+    
     /*********************************
-     *          RENDER LOOP:         *      Should be moved elsewhere?
+     *          RENDER LOOP:         *
      *********************************/
-    while ( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-           glfwWindowShouldClose(window) == 0  ) {
+    while ( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS && glfwWindowShouldClose(window) == 0  ) {
         glfwPollEvents();
         glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -185,9 +187,8 @@ RenderWindow::RenderWindow() {
         mat4 viewMatrix = controls->getViewMatrix();
         mat4 modelMatrix = mat4( 1.0 );
         mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-        glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
-        glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
+        
+        glUseProgram( shaderProgram );
         
         lightPos = vec3(4, 4, 4);
         glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
@@ -196,20 +197,47 @@ RenderWindow::RenderWindow() {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
         // Set the "textureSampler" sampler to user Texture Unit 0
+        textureID = glGetUniformLocation(shaderProgram, "textureSampler");
         glUniform1i(textureID, 0);
         
+        MatrixID = glGetUniformLocation(shaderProgram, "MVP");
+        ViewMatrixID = glGetUniformLocation(shaderProgram, "V");
+        ModelMatrixID = glGetUniformLocation(shaderProgram, "M");
+        LightID = glGetUniformLocation(shaderProgram, "light_position_worldspace");
+        
+        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+        glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
+        
         enableArrays();
+        glBindVertexArray( VAO );
         
         // Index buffer
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 
-        // Draw the triangles !
+        // Draw the vertices
         glDrawElements(
                        GL_TRIANGLES,      // mode
                        indices.size(),    // count
                        GL_UNSIGNED_INT,   // type
                        (void*)0           // element array buffer offset
                        );
+        glBindVertexArray(0);
+        
+        //Draw skybox last:
+        glDepthFunc( GL_LEQUAL );
+        glUseProgram( skybox->skyboxShaderProgram );
+        viewMatrix = glm::mat4( glm::mat3( controls->getViewMatrix( ) ) );
+        
+        glUniformMatrix4fv( glGetUniformLocation( skybox->skyboxShaderProgram, "view" ), 1, GL_FALSE, glm::value_ptr( viewMatrix ) );
+        glUniformMatrix4fv( glGetUniformLocation( skybox->skyboxShaderProgram, "projection" ), 1, GL_FALSE, glm::value_ptr( projectionMatrix ) );
+        
+        // skybox cube
+        glBindVertexArray( skybox->skyboxVAO );
+        glBindTexture( GL_TEXTURE_CUBE_MAP, skybox->skyboxTexture );
+        glDrawArrays( GL_TRIANGLES, 0, 36 );
+        glBindVertexArray( 0 );
+        glDepthFunc( GL_LESS ); // Set depth function back to default
         
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
