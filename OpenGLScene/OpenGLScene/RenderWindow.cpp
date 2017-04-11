@@ -14,6 +14,46 @@
 
 #include "RenderWindow.hpp"
 
+
+static GLfloat ground_vertices[] = {
+    -1.0f,-1.0f,-1.0f, // triangle 1 : begin
+    -1.0f,-1.0f, 1.0f,
+    -1.0f, 1.0f, 1.0f, // triangle 1 : end
+    1.0f, 1.0f,-1.0f, // triangle 2 : begin
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f,-1.0f, // triangle 2 : end
+    1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f,-1.0f,
+    1.0f,-1.0f,-1.0f,
+    1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    -1.0f,-1.0f, 1.0f,
+    1.0f,-1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f,-1.0f,-1.0f,
+    1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f,-1.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f,-1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f,-1.0f,
+    -1.0f, 1.0f,-1.0f,
+    1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f, 1.0f,
+    1.0f,-1.0f, 1.0f
+};
+
 void RenderWindow::setGLContext() {
     // Set all the required options for GLFW
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
@@ -70,6 +110,17 @@ void RenderWindow::initBuffers() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
     
+    
+    //ground:
+    glGenVertexArrays( 1, &VAO_ground );
+    glBindVertexArray( VAO_ground );
+    
+    //Ground Buffer:
+    glGenBuffers( 1, &VBO_ground );
+    glBindBuffer( GL_ARRAY_BUFFER, VBO_ground );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(ground_vertices), ground_vertices, GL_STATIC_DRAW );
+    
+    
     //enable Z-Buffer: Requires GL_DEPTH_BUFFER_BIT in render loop.
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -77,6 +128,8 @@ void RenderWindow::initBuffers() {
 }
 
 void RenderWindow::enableArrays() {
+    
+    glBindVertexArray( VAO );
     
     //Vertex
     glEnableVertexAttribArray( 0 );
@@ -92,6 +145,10 @@ void RenderWindow::enableArrays() {
     glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
     glVertexAttribPointer( 2, 3, GL_FLOAT, GL_FALSE, 0, ( GLvoid * ) 0 );
+    
+    // Index buffer
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+    
     
 }
 
@@ -149,11 +206,11 @@ RenderWindow::RenderWindow() {
     textureID = glGetUniformLocation(shaderProgram, "textureSampler");
     
     /*******************************
-     *           OBJ files:         *
+     *           OBJ files:        *
      ******************************/
     
     // Read our .obj file
-    bool res = LoadAssImp("obj/suzanne.obj", indices, indexed_vertices, indexed_uvs, indexed_normals); //Put in if statement?
+    bool res = LoadAssImp("obj/rowBoat.obj", indices, indexed_vertices, indexed_uvs, indexed_normals); //Put in if statement?
     /* 
      * Objects:
      *
@@ -171,7 +228,7 @@ RenderWindow::RenderWindow() {
     glfwSwapInterval(1);
     initBuffers();
     
-    skybox = new Skybox();
+//    skybox = new Skybox();
     
     /*********************************
      *          RENDER LOOP:         *
@@ -182,39 +239,50 @@ RenderWindow::RenderWindow() {
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         showPerformance();
-        controls->computeMatricesFromInputs();
-        mat4 projectionMatrix = controls->getProjectionMatrix();
-        mat4 viewMatrix = controls->getViewMatrix();
-        mat4 modelMatrix = mat4( 1.0 );
-        mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
         
+        //Shader:
         glUseProgram( shaderProgram );
-        
-        lightPos = vec3(4, 4, 4);
-        glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-        
-        // Bind texture to Texture Unit 0
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        // Set the "textureSampler" sampler to user Texture Unit 0
-        textureID = glGetUniformLocation(shaderProgram, "textureSampler");
-        glUniform1i(textureID, 0);
-        
         MatrixID = glGetUniformLocation(shaderProgram, "MVP");
         ViewMatrixID = glGetUniformLocation(shaderProgram, "V");
         ModelMatrixID = glGetUniformLocation(shaderProgram, "M");
         LightID = glGetUniformLocation(shaderProgram, "light_position_worldspace");
         
+        //Camera controls:
+        controls->computeMatricesFromInputs();
+        mat4 projectionMatrix = controls->getProjectionMatrix();
+        mat4 viewMatrix = controls->getViewMatrix();
+        mat4 modelMatrix = mat4( 1.0 );
+        mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
         glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
         glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
         
-        enableArrays();
-        glBindVertexArray( VAO );
+        //Lighting:
+        lightPos = vec3(4, 4, 4);
+        glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
         
-        // Index buffer
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-
+        //Textures:
+        glActiveTexture(GL_TEXTURE0); // Bind texture to Texture Unit 0
+        glBindTexture(GL_TEXTURE_2D, texture);
+        // Set the "textureSampler" sampler to user Texture Unit 0
+        textureID = glGetUniformLocation(shaderProgram, "textureSampler");
+        glUniform1i(textureID, 0);
+        
+        
+        
+        //ground
+        glBindVertexArray(VAO_ground);
+        glEnableVertexAttribArray( 3 );
+        glBindBuffer( GL_ARRAY_BUFFER, VBO_ground );
+        glVertexAttribPointer( 3, 3, GL_FLOAT, GL_FALSE, 0, ( GLvoid * ) 0 );
+        
+        glDrawArrays(GL_TRIANGLES, 0, 12*3);
+        
+        
+        
+        enableArrays();
+        
+        
         // Draw the vertices
         glDrawElements(
                        GL_TRIANGLES,      // mode
@@ -224,24 +292,26 @@ RenderWindow::RenderWindow() {
                        );
         glBindVertexArray(0);
         
+        
         //Draw skybox last:
-        glDepthFunc( GL_LEQUAL );
-        glUseProgram( skybox->skyboxShaderProgram );
-        viewMatrix = glm::mat4( glm::mat3( controls->getViewMatrix( ) ) );
-        
-        glUniformMatrix4fv( glGetUniformLocation( skybox->skyboxShaderProgram, "view" ), 1, GL_FALSE, glm::value_ptr( viewMatrix ) );
-        glUniformMatrix4fv( glGetUniformLocation( skybox->skyboxShaderProgram, "projection" ), 1, GL_FALSE, glm::value_ptr( projectionMatrix ) );
-        
-        // skybox cube
-        glBindVertexArray( skybox->skyboxVAO );
-        glBindTexture( GL_TEXTURE_CUBE_MAP, skybox->skyboxTexture );
-        glDrawArrays( GL_TRIANGLES, 0, 36 );
-        glBindVertexArray( 0 );
-        glDepthFunc( GL_LESS ); // Set depth function back to default
+//        glDepthFunc( GL_LEQUAL );
+//        glUseProgram( skybox->skyboxShaderProgram );
+//        viewMatrix = glm::mat4( glm::mat3( controls->getViewMatrix( ) ) );
+//        
+//        glUniformMatrix4fv( glGetUniformLocation( skybox->skyboxShaderProgram, "view" ), 1, GL_FALSE, glm::value_ptr( viewMatrix ) );
+//        glUniformMatrix4fv( glGetUniformLocation( skybox->skyboxShaderProgram, "projection" ), 1, GL_FALSE, glm::value_ptr( projectionMatrix ) );
+//        
+//        // skybox cube
+//        glBindVertexArray( skybox->skyboxVAO );
+//        glBindTexture( GL_TEXTURE_CUBE_MAP, skybox->skyboxTexture );
+//        glDrawArrays( GL_TRIANGLES, 0, 36 );
+//        glBindVertexArray( 0 );
+//        glDepthFunc( GL_LESS ); // Set depth function back to default
         
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(2);
+        glDisableVertexAttribArray(3);
         glfwSwapBuffers( window );
     }
     

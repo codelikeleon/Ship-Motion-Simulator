@@ -37,7 +37,7 @@ class RenderWindow {
     GLuint shaderProgram;
     
     //Vertex Array/Buffer Objects:
-    GLuint VAO, VBO;
+    GLuint VAO, VBO, VAO_ground, VBO_ground;
     GLuint uvBuffer;
     GLuint normalBuffer;
     GLuint elementBuffer; //For VBO indexing

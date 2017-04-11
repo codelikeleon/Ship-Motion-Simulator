@@ -78,6 +78,7 @@ public:
     
     Skybox();
     void initSkyboxBuffers();
+    void enableSkyboxArrays();
 };
 
 #endif /* Skybox_hpp */
