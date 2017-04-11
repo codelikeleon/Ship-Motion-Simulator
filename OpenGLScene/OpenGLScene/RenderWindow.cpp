@@ -54,6 +54,250 @@ static GLfloat ground_vertices[] = {
     1.0f,-1.0f, 1.0f
 };
 
+
+
+void RenderWindow::init_height()
+{
+	const float delta = 2. / RESOLUTION;
+	float y,x,x2,y2,xx,yy;
+	int i,j;
+	for(j = 0; j < RESOLUTION; j++)
+		for(i = 0; i <= RESOLUTION; i++)
+		{
+			y = (j + 1) * delta - 1;
+			x = i * delta - 1;
+			x2 = x - 3;
+			y2 = y + 1;
+			xx = x2 * x2;
+			yy = y2 * y2;
+			//jacob this is the height variable i added in the header file if it doesn't recognise it
+			height[i][j] = (3 + 2 * sinf (20 * sqrtf (xx + yy) ) + Noise (10 * x, 10 * y, 0, 0)) / 200;
+			height_v[i][j] = 0;
+		}
+}
+
+float RenderWindow::get_height(int i, int j) {
+    return height[i][j];
+}
+
+float RenderWindow::get_height(float x, float y, float t)
+{
+    float x2 = x - 3;
+    float y2 = y + 1;
+    float xx = x2 * x2;
+    float yy = y2 * y2;
+    return ((2 * sinf (20 * sqrtf (xx + yy) - 4 * t) +
+             Noise (10 * x, 10 * y, t, 0)) / 200);
+}
+
+void RenderWindow::update_height(void)
+{
+	int i,j;
+	for(j = 0; j < RESOLUTION; j++)
+		for(i = 0; i <= RESOLUTION; i++)
+		{
+			float height_east = height[MIN(i+1,RESOLUTION)][j];
+			float height_west = height[MAX(i-1,0)][j];
+			float height_south = height[i][MAX(j-1,0)];
+			float height_north = height[i][MIN(j+1, RESOLUTION-1)];
+			height_v[i][j] += ((height_west+ height_east + height_south + height_north)/4 - height[i][j]);
+			height_v[i][j] *= damping;
+			height[i][j] += height_v[i][j];
+		}
+}
+
+
+void RenderWindow::update_normal_vertices()
+{
+	//jacob you'll need to get these from the rest of your code or at least the time variables
+	
+    static double t_old = glfwGetTime();
+    const double t = glfwGetTime();     //should be divided by 1000?
+    float deltaTime = float(t - t_old);
+	const float delta = 2. / RESOLUTION;
+	const unsigned int length = 2 * (RESOLUTION + 1);
+	const float xn = (RESOLUTION + 1) * delta + 1;
+	unsigned int i;
+	unsigned int j;
+	float x;
+	float y;
+	unsigned int indice;
+	unsigned int preindice;
+
+	/* Yes, I know, this is quite ugly... */
+	GLfloat v1x;
+	GLfloat v1y;
+	GLfloat v1z;
+
+	GLfloat v2x;
+	GLfloat v2y;
+	GLfloat v2z;
+
+	GLfloat v3x;
+	GLfloat v3y;
+	GLfloat v3z;
+
+	GLfloat vax;
+	GLfloat vay;
+	GLfloat vaz;
+
+	GLfloat vbx;
+	GLfloat vby;
+	GLfloat vbz;
+
+	GLfloat nx;
+	GLfloat ny;
+	GLfloat nz;
+
+	GLfloat l;
+
+/*
+	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glLoadIdentity ();
+	glTranslatef (0, 0, -translate_z);
+	glRotatef (rotate_y, 1, 0, 0);
+	glRotatef (rotate_x, 0, 1, 0);
+*/
+	/*update height*/
+    if(t-t_old > (1.f/30)) {
+        update_height();
+        t_old = t;
+    }
+
+	/* Vertices */
+	for (j = 0; j < RESOLUTION; j++)
+	{
+		y = (j + 1) * delta - 1;
+		for (i = 0; i <= RESOLUTION; i++)
+		{
+			indice = 6 * (i + j * (RESOLUTION + 1));
+
+			x = i * delta - 1;
+			surface[indice + 3] = x;
+			surface[indice + 4] = get_height (i, j, t);
+			surface[indice + 5] = y;
+			if (j != 0)
+			{
+				/* Values were computed during the previous loop */
+				preindice = 6 * (i + (j - 1) * (RESOLUTION + 1));
+				surface[indice] = surface[preindice + 3];
+				surface[indice + 1] = surface[preindice + 4];
+				surface[indice + 2] = surface[preindice + 5];
+			}
+			else
+			{
+				surface[indice] = x;
+				surface[indice + 1] = get_height (i, j, t);
+				surface[indice + 2] = -1;
+			}
+		}
+	}
+
+	/* Normals */
+	for (j = 0; j < RESOLUTION; j++)
+		for (i = 0; i <= RESOLUTION; i++)
+		{
+			indice = 6 * (i + j * (RESOLUTION + 1));
+
+			v1x = surface[indice + 3];
+			v1y = surface[indice + 4];
+			v1z = surface[indice + 5];
+
+			v2x = v1x;
+			v2y = surface[indice + 1];
+			v2z = surface[indice + 2];
+
+			if (i < RESOLUTION)
+			{
+				v3x = surface[indice + 9];
+				v3y = surface[indice + 10];
+				v3z = v1z;
+			}
+			else
+			{
+				v3x = xn;
+				v3y = get_height (i, j, t);
+				v3z = v1z;
+			}
+
+			vax =  v2x - v1x;
+			vay =  v2y - v1y;
+			vaz =  v2z - v1z;
+
+			vbx = v3x - v1x;
+			vby = v3y - v1y;
+			vbz = v3z - v1z;
+
+			nx = (vby * vaz) - (vbz * vay);
+			ny = (vbz * vax) - (vbx * vaz);
+			nz = (vbx * vay) - (vby * vax);
+
+			l = sqrtf (nx * nx + ny * ny + nz * nz);
+			if (l != 0)
+			{
+				l = 1 / l;
+				normal[indice + 3] = nx * l;
+				normal[indice + 4] = ny * l;
+				normal[indice + 5] = nz * l;
+			}
+			else
+			{
+				normal[indice + 3] = 0;
+				normal[indice + 4] = 1;
+				normal[indice + 5] = 0;
+			}
+
+
+			if (j != 0)
+			{
+				/* Values were computed during the previous loop */
+				preindice = 6 * (i + (j - 1) * (RESOLUTION + 1));
+				normal[indice] = normal[preindice + 3];
+				normal[indice + 1] = normal[preindice + 4];
+				normal[indice + 2] = normal[preindice + 5];
+			}
+			else
+			{
+				/* 	    v1x = v1x; */
+				v1y = get_height (i, j, t);
+				v1z = (j - 1) * delta - 1;
+
+				/* 	    v3x = v3x; */
+				v3y = get_height (i, j, t);
+				v3z = v2z;
+
+				vax = v1x - v2x;
+				vay = v1y - v2y;
+				vaz = v1z - v2z;
+
+				vbx = v3x - v2x;
+				vby = v3y - v2y;
+				vbz = v3z - v2z;
+
+				nx = (vby * vaz) - (vbz * vay);
+				ny = (vbz * vax) - (vbx * vaz);
+				nz = (vbx * vay) - (vby * vax);
+
+				l = sqrtf (nx * nx + ny * ny + nz * nz);
+				if (l != 0)
+				{
+					l = 1 / l;
+					normal[indice] = nx * l;
+					normal[indice + 1] = ny * l;
+					normal[indice + 2] = nz * l;
+				}
+				else
+				{
+					normal[indice] = 0;
+					normal[indice + 1] = 1;
+					normal[indice + 2] = 0;
+				}
+			}
+		}
+    t_old = t;
+}
+
 void RenderWindow::setGLContext() {
     // Set all the required options for GLFW
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
@@ -89,6 +333,9 @@ void RenderWindow::initBuffers() {
     glGenVertexArrays( 1, &VAO );
     glBindVertexArray( VAO );
     
+	//jacob todo you'll need to added another 2 buffers for the other ones. Watch out though as you need to make sure whether buffers always keep the values from the array or need physically reloading each time
+	
+	
     //Vertex Buffer:
     glGenBuffers( 1, &VBO );
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
@@ -131,6 +378,8 @@ void RenderWindow::enableArrays() {
     
     glBindVertexArray( VAO );
     
+	//jacob todo: same here you need a copy for your new arrays
+	
     //Vertex
     glEnableVertexAttribArray( 0 );
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
@@ -156,6 +405,7 @@ RenderWindow::RenderWindow() {
     //Initialise GLFW
     glfwInit();
     setGLContext();
+	init_height();
     
     window = glfwCreateWindow( WIDTH, HEIGHT, "OpenGL Scene", nullptr, nullptr );
     glfwGetFramebufferSize( window, &screenWidth, &screenHeight );
@@ -210,7 +460,7 @@ RenderWindow::RenderWindow() {
      ******************************/
     
     // Read our .obj file
-    bool res = LoadAssImp("obj/rowBoat.obj", indices, indexed_vertices, indexed_uvs, indexed_normals); //Put in if statement?
+    bool res = LoadAssImp("obj/cube.obj", indices, indexed_vertices, indexed_uvs, indexed_normals); //Put in if statement?
     /* 
      * Objects:
      *
@@ -234,9 +484,14 @@ RenderWindow::RenderWindow() {
      *          RENDER LOOP:         *
      *********************************/
     while ( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS && glfwWindowShouldClose(window) == 0  ) {
+        deltaTime = glfwGetTime();
         glfwPollEvents();
         glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		//jacob this is where vertices etc are updating from
+		
+		update_normal_vertices();
         
         showPerformance();
         

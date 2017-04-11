@@ -8,6 +8,10 @@
 
 #ifndef RenderWindow_hpp
 #define RenderWindow_hpp
+//jacob might want to change this variable
+#define		RESOLUTION 64
+#define     MIN(a, b)   (a<=b?a:b)
+#define     MAX(a, b)   (a>=b?a:b)
 
 #include <iostream>
 #include <GL/glew.h>
@@ -19,6 +23,8 @@
 #include "controls.hpp"
 #include "LoadFunctions.hpp"
 #include "Skybox.hpp"
+
+#include "noise.h"
 
 using namespace glm;
 
@@ -64,6 +70,14 @@ class RenderWindow {
     std::vector<glm::vec2> indexed_uvs;
     std::vector<glm::vec3> indexed_normals;
     std::vector<unsigned int> indices;  //used for VBO indexing
+	
+	//jacob ones i've added
+	float	surface[6 * RESOLUTION * (RESOLUTION + 1)];
+	float	normal[6 * RESOLUTION * (RESOLUTION + 1)];
+	float	height[RESOLUTION+1][RESOLUTION];
+	float	height_v[RESOLUTION+1][RESOLUTION];
+    float   damping = 0.66;
+    double  deltaTime;
 
 //TODO: Make appropriate member functions private
 public:
@@ -72,6 +86,12 @@ public:
     void initBuffers();
     void enableArrays();
     void showPerformance();
+	//jacob one's i've added
+	float get_height(int i, int j);
+    float get_height(float x, float y, float t);
+	void init_height();
+	void update_height();
+	void update_normal_vertices();
 };
 
 #endif /* RenderWindow_hpp */
