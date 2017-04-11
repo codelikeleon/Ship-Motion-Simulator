@@ -77,7 +77,6 @@ class RenderWindow {
 	float	height[RESOLUTION+1][RESOLUTION];
 	float	height_v[RESOLUTION+1][RESOLUTION];
     float   damping = 0.66;
-    double  deltaTime;
 
 //TODO: Make appropriate member functions private
 public:
@@ -87,8 +86,8 @@ public:
     void enableArrays();
     void showPerformance();
 	//jacob one's i've added
-	float get_height(int i, int j);
-    float get_height(float x, float y, float t);
+	//float get_height(int i, int j);
+    //float get_height(float x, float y, float t);
 	void init_height();
 	void update_height();
 	void update_normal_vertices();

@@ -55,7 +55,6 @@ static GLfloat ground_vertices[] = {
 };
 
 
-
 void RenderWindow::init_height()
 {
 	const float delta = 2. / RESOLUTION;
@@ -76,20 +75,22 @@ void RenderWindow::init_height()
 		}
 }
 
-float RenderWindow::get_height(int i, int j) {
-    return height[i][j];
-}
-
-float RenderWindow::get_height(float x, float y, float t)
+//unsure if this is correct...
+static float get_height(const float x, const float y, const float t)
 {
-    float x2 = x - 3;
-    float y2 = y + 1;
-    float xx = x2 * x2;
-    float yy = y2 * y2;
+    const float x2 = x - 3;
+    const float y2 = y + 1;
+    const float xx = x2 * x2;
+    const float yy = y2 * y2;
     return ((2 * sinf (20 * sqrtf (xx + yy) - 4 * t) +
              Noise (10 * x, 10 * y, t, 0)) / 200);
 }
 
+/*
+float RenderWindow::get_height(int i, int j) {
+    return height[i][j];
+}
+*/
 void RenderWindow::update_height(void)
 {
 	int i,j;
@@ -484,7 +485,7 @@ RenderWindow::RenderWindow() {
      *          RENDER LOOP:         *
      *********************************/
     while ( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS && glfwWindowShouldClose(window) == 0  ) {
-        deltaTime = glfwGetTime();
+        //TODO: Add delta time calculator here?
         glfwPollEvents();
         glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
