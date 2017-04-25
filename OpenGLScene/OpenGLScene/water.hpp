@@ -40,9 +40,9 @@ class Water {
 
     bool wire_frame;
     float t_old = 0;
-    int lastDroplet;
-    int lastWave;
-    int lastWireframe;
+    int lastDroplet = 0;
+    int lastWave = 0;
+    int lastWireframe = 0;
     
     float surface[6 * RESOLUTION * (RESOLUTION + 1)];
     float normal[6 * RESOLUTION * (RESOLUTION + 1)];

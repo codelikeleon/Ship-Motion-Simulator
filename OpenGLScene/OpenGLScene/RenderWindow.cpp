@@ -120,11 +120,11 @@ RenderWindow::RenderWindow( GLFWwindow* window, Controls* controls ) {
     LightID = glGetUniformLocation( shaderProgram, "light_position_worldspace" );
     
     //Textures
-    texture = LoadDDS( "textures/suzanne.DDS" );
+    texture = LoadDDS( "textures/cube.DDS" );
     textureID = glGetUniformLocation( shaderProgram, "textureSampler" );
     
     //Load .obj files
-    bool res = LoadAssImp( "obj/suzanne.obj", indices, indexed_vertices, indexed_uvs, indexed_normals );
+    bool res = LoadAssImp( "obj/yacht.obj", indices, indexed_vertices, indexed_uvs, indexed_normals );
     /*
      * Objects:
      *

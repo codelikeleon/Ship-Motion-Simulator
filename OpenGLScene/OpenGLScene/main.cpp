@@ -48,7 +48,7 @@ int main() {
     glewExperimental = GL_TRUE; // So GLEW uses a modern approach to retrieving function pointers and extensions
     
     //Create window
-    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "OpenGL Scene", nullptr, nullptr );
+    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "Ship Motion Simulator", nullptr, nullptr );
     glfwGetFramebufferSize( window, &screenWidth, &screenHeight );
     if ( nullptr == window )
     {
@@ -86,7 +86,7 @@ int main() {
     //Render loop:
     while ( glfwGetKey( window, GLFW_KEY_ESCAPE ) != GLFW_PRESS && glfwWindowShouldClose( window ) == 0  ) {
         
-        showPerformance();
+        //showPerformance();
         
         glfwPollEvents();
         glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour

@@ -268,6 +268,7 @@ void Water::waterControls() {
     
     //Create wave on space bar press
     if (glfwGetKey(window, GLFW_KEY_SPACE ) == GLFW_PRESS && lastWave == 0) {
+        printf("~~~~~~~~~~~~~WAVE~~~~~~~~~~~~~\n");
         wave();
         lastWave = 50;
     }
@@ -275,6 +276,7 @@ void Water::waterControls() {
     
     //Create droplet on 'E' press
     if (glfwGetKey(window, GLFW_KEY_E ) == GLFW_PRESS && lastDroplet == 0) {
+        printf("============DROPLET===========\n");
         droplet();
         lastDroplet = 50;
     }
@@ -282,6 +284,7 @@ void Water::waterControls() {
     
     //Toggle wireframe mode on 'F' press
     if (glfwGetKey(window, GLFW_KEY_F ) == GLFW_PRESS && lastWireframe == 0) {
+        printf("Wireframe %s\n", wire_frame ? "OFF" : "ON");
         wire_frame = wire_frame ? false : true;
         lastWireframe = 20;
     }
@@ -316,6 +319,11 @@ void Water::display() {
     
     if (wire_frame) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  //Wireframe mode
     
+    //Allows transparency.
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_CULL_FACE);
+    
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(
@@ -330,6 +338,8 @@ void Water::display() {
     glDrawArrays(GL_TRIANGLE_STRIP, 0, (6 * RESOLUTION * (RESOLUTION + 1))/3 ); //incorrect?
     
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);  //Return to normal non-wireframe rendering
+    glEnable(GL_CULL_FACE);
+    glDisable(GL_BLEND);
     glDisableVertexAttribArray(0);
 }
 
