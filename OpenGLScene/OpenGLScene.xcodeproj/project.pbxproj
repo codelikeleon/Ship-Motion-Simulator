@@ -17,6 +17,9 @@
 		35666BB21E77605E0065FA62 /* glm in Frameworks */ = {isa = PBXBuildFile; fileRef = 35666BB11E77605E0065FA62 /* glm */; };
 		35666BB81E7983070065FA62 /* controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35666BB61E7983070065FA62 /* controls.cpp */; };
 		35897B411E8AC9E6008AC587 /* libassimp.3.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 35897B401E8AC9E6008AC587 /* libassimp.3.3.1.dylib */; };
+		35B5F1FE1EAF897000180D13 /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35B5F1FC1EAF897000180D13 /* Noise.cpp */; };
+		35B5F2011EAF898500180D13 /* water.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35B5F1FF1EAF898500180D13 /* water.cpp */; };
+		35B5F2041EAF94C000180D13 /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35B5F2021EAF94C000180D13 /* Ground.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +53,12 @@
 		35897B391E89A514008AC587 /* obj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = obj; sourceTree = "<group>"; };
 		35897B3A1E89A5CE008AC587 /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = textures; sourceTree = "<group>"; };
 		35897B401E8AC9E6008AC587 /* libassimp.3.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.3.1.dylib; path = ../../../../../../../usr/local/Cellar/assimp/3.3.1/lib/libassimp.3.3.1.dylib; sourceTree = "<group>"; };
+		35B5F1FC1EAF897000180D13 /* Noise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Noise.cpp; sourceTree = "<group>"; };
+		35B5F1FD1EAF897000180D13 /* Noise.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Noise.hpp; sourceTree = "<group>"; };
+		35B5F1FF1EAF898500180D13 /* water.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = water.cpp; sourceTree = "<group>"; };
+		35B5F2001EAF898500180D13 /* water.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = water.hpp; sourceTree = "<group>"; };
+		35B5F2021EAF94C000180D13 /* Ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cpp; sourceTree = "<group>"; };
+		35B5F2031EAF94C000180D13 /* Ground.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ground.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +104,12 @@
 				355FC3CA1E94244B0079B88C /* Skybox.hpp */,
 				35666BB61E7983070065FA62 /* controls.cpp */,
 				35666BB71E7983070065FA62 /* controls.hpp */,
+				35B5F1FC1EAF897000180D13 /* Noise.cpp */,
+				35B5F1FD1EAF897000180D13 /* Noise.hpp */,
+				35B5F2021EAF94C000180D13 /* Ground.cpp */,
+				35B5F2031EAF94C000180D13 /* Ground.hpp */,
+				35B5F1FF1EAF898500180D13 /* water.cpp */,
+				35B5F2001EAF898500180D13 /* water.hpp */,
 				35897B391E89A514008AC587 /* obj */,
 				35666BB01E77399C0065FA62 /* shaders */,
 				35897B3A1E89A5CE008AC587 /* textures */,
@@ -175,8 +190,11 @@
 			files = (
 				35666BA71E7718370065FA62 /* LoadFunctions.cpp in Sources */,
 				35666BB81E7983070065FA62 /* controls.cpp in Sources */,
+				35B5F2041EAF94C000180D13 /* Ground.cpp in Sources */,
 				35666BAF1E7726700065FA62 /* main.cpp in Sources */,
+				35B5F2011EAF898500180D13 /* water.cpp in Sources */,
 				355FC3CB1E94244B0079B88C /* Skybox.cpp in Sources */,
+				35B5F1FE1EAF897000180D13 /* Noise.cpp in Sources */,
 				35666BAD1E771D700065FA62 /* RenderWindow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

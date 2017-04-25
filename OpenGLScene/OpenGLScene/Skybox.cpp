@@ -33,6 +33,6 @@ Skybox::Skybox() {
     skyboxFaces.push_back( "textures/skybox/sunny/sunny_down.bmp" );   //textures/skybox/cloudtop_down.bmp
     skyboxFaces.push_back( "textures/skybox/sunny/sunny_back.bmp" );   //textures/skybox/cloudtop_back.bmp
     skyboxFaces.push_back( "textures/skybox/sunny/sunny_front.bmp" );  //textures/skybox/cloudtop_front.bmp
-    skyboxTexture = LoadBMPSkybox(skyboxFaces);
+    skyboxTexture = LoadBMPSkybox( skyboxFaces );
     
 }

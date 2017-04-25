@@ -21,17 +21,16 @@ class Controls {
     GLFWwindow *window;
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
-    glm::vec3 position = glm::vec3( 0, 0, 5 );
+    glm::vec3 position = glm::vec3( 0, 0, 3 );  //0,0,5
     
     float horizontalAngle = 3.14f;
     float verticalAngle = 0.0f;
     float initialFoV = 45.0f;
     
-    float speed = 3.0f;         //Movement speed
+    float speed = 1.0f;         //Movement speed
     float mouseSpeed = 0.1f;   //Camera sensitivity
     int width, height;
     
-//    double lastTime;
     
 public:
     Controls( GLFWwindow *window );

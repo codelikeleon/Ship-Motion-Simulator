@@ -24,23 +24,28 @@ using namespace glm;
 
 class RenderWindow {
     
-    bool initiliased;
-    int screenWidth, screenHeight;
-    
-    GLFWwindow *window;
     const GLuint WIDTH = 1024, HEIGHT = 768;
+    int screenWidth, screenHeight;
+    GLFWwindow* window;
+    Controls* controls;
+    Skybox* skybox;
     
-    Controls *controls;
-    
-    GLuint vertexShader;
-    GLuint fragmentShader;
     GLuint shaderProgram;
+    GLuint texture;
+    GLuint textureID;
     
     //Vertex Array/Buffer Objects:
     GLuint VAO, VBO;
     GLuint uvBuffer;
     GLuint normalBuffer;
     GLuint elementBuffer; //For VBO indexing
+    
+    //For OBJ files:
+    bool res;
+    std::vector<glm::vec3> indexed_vertices;
+    std::vector<glm::vec2> indexed_uvs;
+    std::vector<glm::vec3> indexed_normals;
+    std::vector<unsigned int> indices;  //used for VBO indexing
     
     mat4 Projection;
     mat4 View;
@@ -53,30 +58,14 @@ class RenderWindow {
     GLuint LightID;
     vec3 lightPos;
     
-    GLuint texture;
-    GLuint textureID;
-    
-    Skybox *skybox;
-    
-    //For OBJ files:
-    bool res;
-    std::vector<glm::vec3> indexed_vertices;
-    std::vector<glm::vec2> indexed_uvs;
-    std::vector<glm::vec3> indexed_normals;
-    std::vector<unsigned int> indices;  //used for VBO indexing
-
 //TODO: Make appropriate member functions private
 public:
     RenderWindow( GLFWwindow* window, Controls* controls );
     ~RenderWindow();
+    
     void display();
-    
-    
-    
-    void setGLContext();
     void initBuffers();
     void enableArrays();
-    void showPerformance();
 };
 
 #endif /* RenderWindow_hpp */
