@@ -33,20 +33,16 @@ class Water {
     Noise* noise;
     
     GLuint VAO, VBO, normalBuffer;
-    GLuint VAO_ground, VBO_ground;
     GLuint shaderProgram;
-    GLuint groundShaderProgram;
-    glm::mat4 Projection, View, Model, MVP;
     GLuint MatrixID;
     GLuint ViewMatrixID;
     GLuint ModelMatrixID;
-    GLuint LightID;
 
     bool wire_frame;
-    int normals;
-    int xold;
-    int yold;
     float t_old = 0;
+    int lastDroplet;
+    int lastWave;
+    int lastWireframe;
     
     float surface[6 * RESOLUTION * (RESOLUTION + 1)];
     float normal[6 * RESOLUTION * (RESOLUTION + 1)];
@@ -64,6 +60,8 @@ public:
     void update_height();
     void update_normal_vertices();
     void droplet();
+    void wave();
+    void waterControls();
     void display();
 };
 

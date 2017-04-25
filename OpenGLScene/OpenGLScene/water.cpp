@@ -8,11 +8,6 @@
 
 #include "water.hpp"
 
-
-/*
- *  WATER CLASS:
- */
-
 void Water::init_height()
 {
     float delta = 2. / RESOLUTION;
@@ -27,7 +22,7 @@ void Water::init_height()
             y2 = y + 1;
             xx = x2 * x2;
             yy = y2 * y2;
-            height[i][j] = (3 + 2 * sinf (20 * sqrtf (xx + yy) ) + noise->genNoise(10 * x, 10 * y, 0, 0)) / 200;
+            height[i][j] = (5 + 2 * sinf (20 * sqrtf (xx + yy) ) + noise->genNoise(10 * x, 10 * y, 0, 0)) / 200;
             height_v[i][j] = 0;
         }
 }
@@ -56,7 +51,7 @@ void Water::update_height() {
 
 void Water::update_normal_vertices() {
     //jacob you'll need to get these from the rest of your code or at least the time variables
-    double t = glfwGetTime() * 2.; //currentTime / 1000.;   //should t = deltaTime? I think glutGet(GLUT_ELAPSED_TIME) = the time difference from when the function was last called.
+    double t = glfwGetTime() * 4.; //currentTime / 1000.;   //should t = deltaTime? I think glutGet(GLUT_ELAPSED_TIME) = the time difference from when the function was last called.
     
     float delta = 2. / RESOLUTION;
     unsigned int length = 2 * (RESOLUTION + 1);
@@ -234,21 +229,71 @@ void Water::update_normal_vertices() {
     t_old = t;
 }
 
+void Water::wave() {
+    int i, j;
+    for (j = 0; j < 5; j++)
+        for (i=0; i < 66; i++) {
+            height[i][j] /= 3;
+        }
+    for (j = 5; j < 15; j++)
+        for (i=0; i < 66; i++) {
+            height[i][j] *= 5;
+        }
+    for (j = 15; j < 65; j++)
+        for (i=0; i < 66; i++) {
+            height[i][j] /= 3;
+        }
+}
+
 void Water::droplet(void)
 {
     int i, j;
-    for (j = 20 ; j < 40; j++)
-        for (i = 20; i <= 40; i++)
-        {
-            height[i][j] *= 4;
-            height_v[i][j] = 0;
+    for (j = 20; j < 40; j++)
+        for (i = 20; i <= 40; i++) {
+            height[i][j] *= 3.5;
+            //height_v[i][j] = 0;
         }
+    //Reduce height of the rest of grid to stop water level rising
+    for (j = 0; j < 20; j++)
+        for (i=0; i < 20; i++) {
+            height[i][j] /= 2;
+        }
+    for (j = 40; j <= 64; j++)
+        for (i=41; i<=65; i++) {
+            height[i][j] /= 2;
+        }
+}
+
+void Water::waterControls() {
+    
+    //Create wave on space bar press
+    if (glfwGetKey(window, GLFW_KEY_SPACE ) == GLFW_PRESS && lastWave == 0) {
+        wave();
+        lastWave = 50;
+    }
+    if (lastWave > 0) lastWave--;
+    
+    //Create droplet on 'E' press
+    if (glfwGetKey(window, GLFW_KEY_E ) == GLFW_PRESS && lastDroplet == 0) {
+        droplet();
+        lastDroplet = 50;
+    }
+    if (lastDroplet > 0) lastDroplet--;
+    
+    //Toggle wireframe mode on 'F' press
+    if (glfwGetKey(window, GLFW_KEY_F ) == GLFW_PRESS && lastWireframe == 0) {
+        wire_frame = wire_frame ? false : true;
+        lastWireframe = 20;
+    }
+    if (lastWireframe > 0) lastWireframe--;
 }
 
 void Water::display() {
     
     const unsigned int length = 2 * (RESOLUTION + 1);
     update_normal_vertices();
+    
+    waterControls();
     
     //Bind to the water VAO
     glBindVertexArray( VAO );
@@ -295,14 +340,11 @@ Water::Water( GLFWwindow* window, Controls* controls ) {
     this->controls = controls;
     
     wire_frame = true;
-    normals = 0;
-    xold = 0;
-    yold = 0;
     noise = new Noise();
     
     init_height();
     
-    shaderProgram = LoadShaders( "shaders/WaterVertexShader.glsl", "shaders/WaterFragmentShader.glsl" );    //may only need 1 fragment shader
+    shaderProgram = LoadShaders( "shaders/WaterVertexShader.glsl", "shaders/WaterFragmentShader.glsl" );
     //Send handles to GLSL:
     MatrixID = glGetUniformLocation( shaderProgram, "MVP" );
     ViewMatrixID = glGetUniformLocation( shaderProgram, "V" );
@@ -315,12 +357,10 @@ Water::Water( GLFWwindow* window, Controls* controls ) {
     //Vertex Buffer:
     glGenBuffers( 1, &VBO );
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(surface), surface, GL_STATIC_DRAW );    //incorrect? // sizeof(surface), surface
+    glBufferData( GL_ARRAY_BUFFER, sizeof(surface), surface, GL_STATIC_DRAW );
     
     //Normal buffer:
     glGenBuffers(1, &normalBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(normal), normal, GL_STATIC_DRAW);          //sizeof(normal), normal
-    
-
+    glBufferData(GL_ARRAY_BUFFER, sizeof(normal), normal, GL_STATIC_DRAW);
 }
