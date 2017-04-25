@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3500330C1E9D76B700DC89C3 /* noise.c in Sources */ = {isa = PBXBuildFile; fileRef = 3500330A1E9D76B700DC89C3 /* noise.c */; };
 		355FC3CB1E94244B0079B88C /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 355FC3C91E94244B0079B88C /* Skybox.cpp */; };
 		35666B9C1E76FEDE0065FA62 /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 35666B9B1E76FEDE0065FA62 /* libGLEW.2.0.0.dylib */; };
 		35666B9E1E76FEE50065FA62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35666B9D1E76FEE50065FA62 /* OpenGL.framework */; };
@@ -33,8 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3500330A1E9D76B700DC89C3 /* noise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = noise.c; sourceTree = "<group>"; };
-		3500330B1E9D76B700DC89C3 /* noise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = noise.h; sourceTree = "<group>"; };
 		355FC3C91E94244B0079B88C /* Skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Skybox.cpp; sourceTree = "<group>"; };
 		355FC3CA1E94244B0079B88C /* Skybox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Skybox.hpp; sourceTree = "<group>"; };
 		35666B8E1E76FE2F0065FA62 /* OpenGLScene */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenGLScene; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,8 +95,6 @@
 				355FC3CA1E94244B0079B88C /* Skybox.hpp */,
 				35666BB61E7983070065FA62 /* controls.cpp */,
 				35666BB71E7983070065FA62 /* controls.hpp */,
-				3500330A1E9D76B700DC89C3 /* noise.c */,
-				3500330B1E9D76B700DC89C3 /* noise.h */,
 				35897B391E89A514008AC587 /* obj */,
 				35666BB01E77399C0065FA62 /* shaders */,
 				35897B3A1E89A5CE008AC587 /* textures */,
@@ -178,7 +173,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3500330C1E9D76B700DC89C3 /* noise.c in Sources */,
 				35666BA71E7718370065FA62 /* LoadFunctions.cpp in Sources */,
 				35666BB81E7983070065FA62 /* controls.cpp in Sources */,
 				35666BAF1E7726700065FA62 /* main.cpp in Sources */,
