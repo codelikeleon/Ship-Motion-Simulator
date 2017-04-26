@@ -46,5 +46,5 @@ void main() {
     
     color = material_ambient_color +
             material_diffuse_color  * light_color * light_power * cosTheta / ( distance * distance ) +
-            material_specular_color * light_color * light_power * pow( cosAlpha, 5 ) / ( distance * distance )
+            material_specular_color * light_color * light_power * pow( cosAlpha, 5 ) / ( distance * distance );
 }
