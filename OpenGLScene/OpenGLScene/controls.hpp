@@ -28,7 +28,7 @@ class Controls {
     float initialFoV = 45.0f;
     
     float speed = 1.0f;         //Movement speed
-    float mouseSpeed = 0.1f;   //Camera sensitivity
+    float mouseSpeed = 0.2f;   //Camera sensitivity
     int width, height;
     
     

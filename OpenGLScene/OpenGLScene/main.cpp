@@ -86,7 +86,7 @@ int main() {
     //Render loop:
     while ( glfwGetKey( window, GLFW_KEY_ESCAPE ) != GLFW_PRESS && glfwWindowShouldClose( window ) == 0  ) {
         
-        //showPerformance();
+        showPerformance();
         
         glfwPollEvents();
         glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );   //sets background colour
@@ -98,6 +98,11 @@ int main() {
         
         glfwSwapBuffers( window );
     }
+    
+    delete controls;
+    delete renderWindow;
+    delete water;
+    delete ground;
     
     glfwTerminate();
     return 0;

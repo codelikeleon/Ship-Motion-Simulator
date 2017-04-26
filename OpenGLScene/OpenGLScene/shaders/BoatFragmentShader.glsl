@@ -13,15 +13,15 @@ uniform mat4 MV;
 uniform vec3 light_position_worldspace;
 
 void main() {
-    vec3 light_color = vec3(1,1,1);
+    vec3 light_color = vec3( 1, 1, 1 );
     float light_power = 50.0f;
     
     vec3 material_diffuse_color = texture( textureSampler, uv ).rgb;
-    vec3 material_ambient_color = vec3(0.1,0.1,0.1) * material_diffuse_color;
-    vec3 material_specular_color = vec3(0.3,0.3,0.3);
+    vec3 material_ambient_color = vec3( 0.1, 0.1, 0.1 ) * material_diffuse_color;
+    vec3 material_specular_color = vec3( 0.3, 0.3, 0.3 );
     
-    vec3 n = normalize(normal_cameraspace);
-    vec3 l = normalize(light_direction_cameraspace);
+    vec3 n = normalize( normal_cameraspace );
+    vec3 l = normalize( light_direction_cameraspace );
     
     // Distance to the light
     float distance = length( light_position_worldspace - position_worldspace );
@@ -33,19 +33,18 @@ void main() {
     float cosTheta = clamp( dot( n, l ), 0, 1 );
     
     // Eye vector (towards the camera)
-    vec3 E = normalize(eye_direction_cameraspace);
+    vec3 E = normalize( eye_direction_cameraspace );
     
     // Direction in which the triangle reflects the light
-    vec3 R = reflect(-l, n);
+    vec3 R = reflect( -l, n );
     
     // Cosine of the angle between the Eye vector and the Reflect vector,
     // clamped to 0
     //  - Looking into the reflection -> 1
     //  - Looking elsewhere -> < 1
-    float cosAlpha = clamp( dot( E,R ), 0,1 );
+    float cosAlpha = clamp( dot( E, R ), 0, 1 );
     
     color = material_ambient_color +
-            material_diffuse_color  * light_color * light_power * cosTheta / (distance * distance) +
-            material_specular_color * light_color * light_power * pow(cosAlpha, 5) / (distance * distance);
-
+            material_diffuse_color  * light_color * light_power * cosTheta / ( distance * distance ) +
+            material_specular_color * light_color * light_power * pow( cosAlpha, 5 ) / ( distance * distance )
 }

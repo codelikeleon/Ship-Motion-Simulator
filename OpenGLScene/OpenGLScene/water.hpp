@@ -9,9 +9,9 @@
 #ifndef water_hpp
 #define water_hpp
 
-#define RESOLUTION 64
-#define MIN(a,b) (((a)<(b))?(a):(b))
-#define MAX(a,b) (((a)>(b))?(a):(b))
+#define RES 128
+#define MIN(a,b) a<b ? a:b
+#define MAX(a,b) a>b ? a:b
 
 #include <stdio.h>
 #include <fstream>
@@ -38,16 +38,16 @@ class Water {
     GLuint ViewMatrixID;
     GLuint ModelMatrixID;
 
-    bool wire_frame;
+    bool wireframeMode;
     float t_old = 0;
     int lastDroplet = 0;
     int lastWave = 0;
     int lastWireframe = 0;
     
-    float surface[6 * RESOLUTION * (RESOLUTION + 1)];
-    float normal[6 * RESOLUTION * (RESOLUTION + 1)];
-    float height[RESOLUTION+1][RESOLUTION];
-    float height_v[RESOLUTION+1][RESOLUTION];
+    float surface[6 * RES * ( RES + 1 )];
+    float normal[6 * RES * ( RES + 1 )];
+    float height[RES+1][RES];
+    float height_v[RES+1][RES];
     const float damping = 0.66;
     
 public:
@@ -55,10 +55,10 @@ public:
     double currentTime;
     
     Water( GLFWwindow* window, Controls* controls );
-    void init_height();
-    float get_height( int i, int j, int t );
-    void update_height();
-    void update_normal_vertices();
+    void initHeight();
+    float getHeight( int i, int j, int t );
+    void updateHeight();
+    void updateVertices();
     void droplet();
     void wave();
     void waterControls();

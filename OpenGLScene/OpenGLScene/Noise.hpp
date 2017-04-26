@@ -31,9 +31,9 @@ class Noise {
     
 public:
     Noise();
-    int indice( int i, int j, int k, int l);
-    float prod( float a, char b );
-    float dot_prod ( float x1, char x2, float y1, char y2, float z1, char z2, float t1, char t2 );
+    int index( int i, int j, int k, int l);
+    float product( float a, char b );
+    float dotProduct( float x1, char x2, float y1, char y2, float z1, char z2, float t1, char t2 );
     float spline5( float state );
     float linear( float start, float end, float state );
     float genNoise( float x, float y, float z, float t );

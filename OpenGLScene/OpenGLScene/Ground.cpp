@@ -47,10 +47,10 @@ Ground::Ground( GLFWwindow* window, Controls* controls ) {
     this->controls = controls;
     
     const GLfloat ground_vertices[] = {
-        -1.0f, 0.0f, -1.0f,
-        -1.0f, 0.0f,  1.0f,
-        1.0f, 0.0f,  1.0f,
-        1.0f, 0.0f, -1.0f
+        -1.0f, -0.1f, -1.0f,
+        -1.0f, -0.1f,  1.0f,
+        1.0f, -0.1f,  1.0f,
+        1.0f, -0.1f, -1.0f
     };
     
     //shaders:
