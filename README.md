@@ -6,6 +6,7 @@ My 3rd year Computer Science dissertation at the University of Exeter
 * Interact with the water by creating waves and droplets with 'SPACEBAR', 'E'.
 * FPS style camera controls
 * Can load textures and 3D models in wavefront (.obj) format by placing them in the /obj folder and adding the filename to the code
+* Developed on MacOS Sierra
 
 Future work:
 * Water-Ship interaction
